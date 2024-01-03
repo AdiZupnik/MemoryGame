@@ -8,6 +8,10 @@ import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity {
 
+    int[][] board;
+    int[] pic;
+    int count;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -15,68 +19,52 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void knock1(View view) {
-        ImageView cardOne = findViewById(R.id.im_11);
-        cardOne.setImageResource(R.drawable.dog1);
+    private void onNewGame() {
+        board = new int[4][4];
+        for (int row = 0; row < 4; row++)
+            for (int col = 0; col < 4; col++)
+                board[row][col] = new int();
+        count = 0;
     }
-    public void knock2(View view) {
-        ImageView cardOne = findViewById(R.id.im_12);
-        cardOne.setImageResource(R.drawable.dog2);
+    private void onNewGame1() {
+        pic = new int[8];
+        for (int row1 = 0; row1 < 4; row1++)
+                pic[row1] = new int();
+        count = 0;
     }
-    public void knock3(View view) {
-        ImageView cardOne = findViewById(R.id.im_13);
-        cardOne.setImageResource(R.drawable.dog3);
-    }
-    public void knock4(View view) {
-        ImageView cardOne = findViewById(R.id.im_14);
-        cardOne.setImageResource(R.drawable.dog4);
-    }
-    public void knock5(View view) {
-        ImageView cardOne = findViewById(R.id.im_21);
-        cardOne.setImageResource(R.drawable.dog5);
-    }
-    public void knock6(View view) {
-        ImageView cardOne = findViewById(R.id.im_22);
-        cardOne.setImageResource(R.drawable.dog6);
-    }
-    public void knock7(View view) {
-        ImageView cardOne = findViewById(R.id.im_23);
-        cardOne.setImageResource(R.drawable.dog7);
-    }
-    public void knock8(View view) {
-        ImageView cardOne = findViewById(R.id.im_24);
-        cardOne.setImageResource(R.drawable.dog8);
-    }
-    public void knock9(View view) {
-        ImageView cardOne = findViewById(R.id.im_31);
-        cardOne.setImageResource(R.drawable.dog1);
-    }
-    public void knock10(View view) {
-        ImageView cardOne = findViewById(R.id.im_32);
-        cardOne.setImageResource(R.drawable.dog2);
-    }
-    public void knock11(View view) {
-        ImageView cardOne = findViewById(R.id.im_33);
-        cardOne.setImageResource(R.drawable.dog3);
-    }
-    public void knock12(View view) {
-        ImageView cardOne = findViewById(R.id.im_34);
-        cardOne.setImageResource(R.drawable.dog4);
-    }
-    public void knock13(View view) {
-        ImageView cardOne = findViewById(R.id.im_41);
-        cardOne.setImageResource(R.drawable.dog5);
-    }
-    public void knock14(View view) {
-        ImageView cardOne = findViewById(R.id.im_42);
-        cardOne.setImageResource(R.drawable.dog6);
-    }
-    public void knock15(View view) {
-        ImageView cardOne = findViewById(R.id.im_43);
-        cardOne.setImageResource(R.drawable.dog7);
-    }
-    public void knock16(View view) {
-        ImageView cardOne = findViewById(R.id.im_44);
-        cardOne.setImageResource(R.drawable.dog8);
+
+    public void knock(View view) {
+        if (view.getId() == R.id.im_11)
+            handleClick(0, 0, R.id.im_11);
+        if (view.getId() == R.id.im_12)
+            handleClick(0, 1, R.id.im_12);
+        if (view.getId() == R.id.im_13)
+            handleClick(0, 2, R.id.im_13);
+        if (view.getId() == R.id.im_14)
+            handleClick(0, 3, R.id.im_14);
+        if (view.getId() == R.id.im_21)
+            handleClick(1, 0, R.id.im_21);
+        if (view.getId() == R.id.im_22)
+            handleClick(1, 1, R.id.im_22);
+        if (view.getId() == R.id.im_23)
+            handleClick(1, 2, R.id.im_23);
+        if (view.getId() == R.id.im_24)
+            handleClick(1, 3, R.id.im_24);
+        if (view.getId() == R.id.im_31)
+            handleClick(2, 0, R.id.im_31);
+        if (view.getId() == R.id.im_32)
+            handleClick(2, 1, R.id.im_32);
+        if (view.getId() == R.id.im_33)
+            handleClick(2, 2, R.id.im_33);
+        if (view.getId() == R.id.im_34)
+            handleClick(2, 3, R.id.im_34);
+        if (view.getId() == R.id.im_41)
+            handleClick(3, 0, R.id.im_41);
+        if (view.getId() == R.id.im_42)
+            handleClick(3, 1, R.id.im_42);
+        if (view.getId() == R.id.im_43)
+            handleClick(3, 2, R.id.im_43);
+        if (view.getId() == R.id.im_44)
+            handleClick(3, 3, R.id.im_44);
     }
 }
