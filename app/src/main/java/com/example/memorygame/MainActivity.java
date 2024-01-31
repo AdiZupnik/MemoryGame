@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
                 turnEnd(view);
             }
         }
-        public void closeCard(int card1, ImageView view){
+        public void close2Card(int card1, ImageView view){
             ImageView card1Closed = findViewById(card1);
             card1Closed.setImageResource(R.drawable.card_back);
             ImageView card2Closed = findViewById(view.getId());
@@ -192,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else{
                     final Handler handler = new Handler();
-                    handler.postDelayed(() -> closeCard(card1,((ImageView) view)), 400);
+                    handler.postDelayed(() -> close2Card(card1,((ImageView) view)), 400);
                     if(turn.equals("counterPlayer1")){
                         turn  = "counterPlayer2";
                     }
@@ -202,6 +202,45 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
-
+        public void Reset(View view){
+            countPlayer1=0;
+            TextView counterTextView = findViewById(R.id.counter1);
+            counterTextView.setText("P1-"+countPlayer1);
+            countPlayer2=0;
+            TextView counterTextView2 = findViewById(R.id.counter2);
+            counterTextView2.setText("P2-"+countPlayer2);
+            ImageView card1Closed = findViewById(R.id.im_11);
+            card1Closed.setImageResource(R.drawable.card_back);
+            ImageView card2Closed = findViewById(R.id.im_12);
+            card2Closed.setImageResource(R.drawable.card_back);
+            ImageView card3Closed = findViewById(R.id.im_13);
+            card3Closed.setImageResource(R.drawable.card_back);
+            ImageView card4Closed = findViewById(R.id.im_14);
+            card4Closed.setImageResource(R.drawable.card_back);
+            ImageView card21Closed = findViewById(R.id.im_21);
+            card21Closed.setImageResource(R.drawable.card_back);
+            ImageView card22Closed = findViewById(R.id.im_22);
+            card22Closed.setImageResource(R.drawable.card_back);
+            ImageView card23Closed = findViewById(R.id.im_23);
+            card23Closed.setImageResource(R.drawable.card_back);
+            ImageView card24Closed = findViewById(R.id.im_24);
+            card24Closed.setImageResource(R.drawable.card_back);
+            ImageView card31Closed = findViewById(R.id.im_31);
+            card31Closed.setImageResource(R.drawable.card_back);
+            ImageView card32Closed = findViewById(R.id.im_32);
+            card32Closed.setImageResource(R.drawable.card_back);
+            ImageView card33Closed = findViewById(R.id.im_33);
+            card33Closed.setImageResource(R.drawable.card_back);
+            ImageView card34Closed = findViewById(R.id.im_34);
+            card34Closed.setImageResource(R.drawable.card_back);
+            ImageView card41Closed = findViewById(R.id.im_41);
+            card41Closed.setImageResource(R.drawable.card_back);
+            ImageView card42Closed = findViewById(R.id.im_42);
+            card42Closed.setImageResource(R.drawable.card_back);
+            ImageView card43Closed = findViewById(R.id.im_43);
+            card43Closed.setImageResource(R.drawable.card_back);
+            ImageView card44Closed = findViewById(R.id.im_44);
+            card44Closed.setImageResource(R.drawable.card_back);
+        }
 
     }
