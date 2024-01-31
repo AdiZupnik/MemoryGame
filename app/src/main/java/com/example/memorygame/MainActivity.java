@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -177,11 +178,15 @@ public class MainActivity extends AppCompatActivity {
                 Drawable image2 = ((ImageView)view).getDrawable();
                 if(image1.getConstantState().equals(image2.getConstantState())){
                     if(turn.equals("counterPlayer1")){
-                        countPlayer1 ++ ;
+                        countPlayer1++;
+                        TextView counterTextView = findViewById(R.id.counter1);
+                        counterTextView.setText("P1-"+countPlayer1);
                         turn  = "counterPlayer2";
                     }
                     else{
                         countPlayer2++;
+                        TextView counterTextView = findViewById(R.id.counter2);
+                        counterTextView.setText("P2-"+countPlayer2);
                         turn = "counterPlayer1";
                     }
                 }
@@ -197,5 +202,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
+
 
     }
