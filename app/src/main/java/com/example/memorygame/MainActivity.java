@@ -11,6 +11,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     String[][] board;
@@ -20,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     int countPlayer2 = 0;
     int card1;
     String turn = "counterPlayer1";
-    int[] drawableIds = {
+    Integer[] drawableIds = {
             // Array of drawable resource IDs
             R.drawable.dog1, R.drawable.dog2, R.drawable.dog3, R.drawable.dog4, R.drawable.dog5, R.drawable.dog6, R.drawable.dog7, R.drawable.dog8,
             R.drawable.dog1, R.drawable.dog2, R.drawable.dog3, R.drawable.dog4, R.drawable.dog5, R.drawable.dog6, R.drawable.dog7, R.drawable.dog8
@@ -41,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void onNewGame() {
+        shuffleCards();
         board = new String[4][4];
         for (int row = 0; row < 4; row++)
             for (int col = 0; col < 4; col++) {
@@ -50,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void onNewGame1() {
-        ImageView[] imageViews = new ImageView[8];
+        ImageView[] imageViews = new ImageView[16];
         for (int i = 0; i < drawableIds.length; i++) {
             // Create a new ImageView
             Context context = null;
@@ -60,6 +66,11 @@ public class MainActivity extends AppCompatActivity {
             // Add the ImageView to the array
             imageViews[i] = imageView;
         }
+    }
+    private void shuffleCards() {
+        List<Integer> drawableIdsList = Arrays.asList(drawableIds);
+        Collections.shuffle(drawableIdsList);
+        drawableIdsList.toArray(drawableIds);
     }
 
     public void knock(View view) {
@@ -115,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         public void Reset(View view){
+            shuffleCards();
             count = 0;
             countPlayer1=0;
             TextView counterTextView = findViewById(R.id.counter1);
