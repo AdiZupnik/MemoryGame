@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     String[][] board;
     ImageView[] ImageViews;
     int count;
-    int countPlayer1 = 0 ;
+    int countPlayer1 = 0;
     int countPlayer2 = 0;
     int card1;
     String turn = "counterPlayer1";
@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
             imageViews[i] = imageView;
         }
     }
+
     private void shuffleCards() {
         List<Integer> drawableIdsList = Arrays.asList(drawableIds);
         Collections.shuffle(drawableIdsList);
@@ -75,68 +76,66 @@ public class MainActivity extends AppCompatActivity {
 
     public void knock(View view) {
         count++;
-       for(int i = 0; i < viewId.length; i++){
-            if(view.getId() == viewId[i])  {
+        for (int i = 0; i < viewId.length; i++) {
+            if (view.getId() == viewId[i]) {
                 ImageView backImageView = findViewById(viewId[i]);
                 backImageView.setImageResource(drawableIds[i]);
                 turnEnd(view);
             }
-       }
-    }
-        public void close2Card(int card1, ImageView view){
-            ImageView card1Closed = findViewById(card1);
-            card1Closed.setImageResource(R.drawable.card_back);
-            ImageView card2Closed = findViewById(view.getId());
-            card2Closed.setImageResource(R.drawable.card_back);
         }
-        public void turnEnd(View view) {
-            if (count % 2 != 0){
-                card1 = view.getId();
-                return;
-            }
-            if(count % 2 == 0){
-                ImageView imageViewCard1 = findViewById(card1);
-                Drawable image1 = imageViewCard1.getDrawable();
-                Drawable image2 = ((ImageView)view).getDrawable();
-                if(image1.getConstantState().equals(image2.getConstantState())){
-                    if(turn.equals("counterPlayer1")){
-                        countPlayer1++;
-                        TextView counterTextView = findViewById(R.id.counter1);
-                        counterTextView.setText("P1-"+countPlayer1);
-                        turn  = "counterPlayer2";
-                    }
-                    else{
-                        countPlayer2++;
-                        TextView counterTextView = findViewById(R.id.counter2);
-                        counterTextView.setText("P2-"+countPlayer2);
-                        turn = "counterPlayer1";
-                    }
-                }
-                else{
-                    final Handler handler = new Handler();
-                    handler.postDelayed(() -> close2Card(card1,((ImageView) view)), 400);
-                    if(turn.equals("counterPlayer1")){
-                        turn  = "counterPlayer2";
-                    }
-                    else{
-                        turn = "counterPlayer1";
+    }
 
-                    }
+    public void turnEnd(View view) {
+        if (count % 2 != 0) {
+            card1 = view.getId();
+            return;
+        }
+        if (count % 2 == 0) {
+            ImageView imageViewCard1 = findViewById(card1);
+            Drawable image1 = imageViewCard1.getDrawable();
+            Drawable image2 = ((ImageView) view).getDrawable();
+            if (image1.getConstantState().equals(image2.getConstantState())) {
+                if (turn.equals("counterPlayer1")) {
+                    countPlayer1++;
+                    TextView counterTextView = findViewById(R.id.counter1);
+                    counterTextView.setText("P1-" + countPlayer1);
+                    turn = "counterPlayer2";
+                } else {
+                    countPlayer2++;
+                    TextView counterTextView = findViewById(R.id.counter2);
+                    counterTextView.setText("P2-" + countPlayer2);
+                    turn = "counterPlayer1";
+                }
+            } else {
+                if (turn.equals("counterPlayer1")) {
+                    turn = "counterPlayer2";
+                } else {
+                    turn = "counterPlayer1";
+
                 }
             }
         }
-        public void Reset(View view){
-            shuffleCards();
-            count = 0;
-            countPlayer1=0;
-            TextView counterTextView = findViewById(R.id.counter1);
-            counterTextView.setText("P1-"+countPlayer1);
-            countPlayer2=0;
-            TextView counterTextView2 = findViewById(R.id.counter2);
-            counterTextView2.setText("P2-"+countPlayer2);
-            for(int i = 0; i < viewId.length; i++){
-                    ImageView cardClosed = findViewById(viewId[i]);
-                    cardClosed.setImageResource(R.drawable.card_back);
-            }
+    }
+
+    public void Reset(View view) {
+        shuffleCards();
+        count = 0;
+        countPlayer1 = 0;
+        TextView counterTextView = findViewById(R.id.counter1);
+        counterTextView.setText("P1-" + countPlayer1);
+        countPlayer2 = 0;
+        TextView counterTextView2 = findViewById(R.id.counter2);
+        counterTextView2.setText("P2-" + countPlayer2);
+        for (int i = 0; i < viewId.length; i++) {
+            ImageView cardClosed = findViewById(viewId[i]);
+            cardClosed.setImageResource(R.drawable.card_back);
         }
     }
+
+    public void closeCard(View view) {
+        for (int i = 0; i < viewId.length; i++) {
+            ImageView cardClosed = findViewById(viewId[i]);
+            cardClosed.setImageResource(R.drawable.card_back);
+        }
+    }
+}
