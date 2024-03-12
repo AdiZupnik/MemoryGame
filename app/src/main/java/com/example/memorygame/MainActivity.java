@@ -1,8 +1,17 @@
 package com.example.memorygame;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContract;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.app.Instrumentation;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,13 +19,63 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.imageview.ShapeableImageView;
+import com.google.firebase.Firebase;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.GoogleAuthProvider;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
+    FirebaseAuth auth;
+    GoogleSignInClient googleSignInClient;
+    ShapeableImageView imageView;
+    TextView name, mail;
+    private final ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+        @Override
+        public void onActivityResult(ActivityResult result) {
+            if (result.getResultCode() == RESULT_OK) {
+                Task<GoogleSignInAccount> accountTask = GoogleSignIn.getSignedInAccountFromIntent(result.getData());
+                try {
+                    GoogleSignInAccount signInAccount = accountTask.getResult(ApiException.class);
+                    AuthCredential authCredential = GoogleAuthProvider.getCredential(signInAccount.getIdToken(), null);
+                    auth.signInWithCredential(authCredential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                auth = FirebaseAuth().getInstance();
+                                Glide.with(MainActivity.this).load(Objects.requireNonNull(auth.getCurrentUser()).getPhotoUrl()).into(imageView);
+                                name.setText(auth.getCurrentUser().getDisplayName());
+                                mail.setText(auth.getCurrentUser().getEmail());
+                                Toast.makeText(MainActivity.this, "Sign in successfully!", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(MainActivity.this, "Failed to sign in: " + task.getException(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                } catch (ApiException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    });
+
 
     String[][] board;
     ImageView[] ImageViews;
@@ -133,9 +192,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void closeCard(View view) {
+        ImageView imageViewCard1 = findViewById(card1);
+        Drawable image1 = imageViewCard1.getDrawable();
+        Drawable image2 = ((ImageView) view).getDrawable();
         for (int i = 0; i < viewId.length; i++) {
-            ImageView cardClosed = findViewById(viewId[i]);
-            cardClosed.setImageResource(R.drawable.card_back);
+            if(!image1.getConstantState().equals(image2.getConstantState())) {
+                ImageView cardClosed = findViewById(viewId[i]);
+                cardClosed.setImageResource(R.drawable.card_back);
+            }
         }
     }
 }
