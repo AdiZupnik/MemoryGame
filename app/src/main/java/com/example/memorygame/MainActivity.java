@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.memorygame.R;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -25,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
     int countPlayer1 = 0;
     int countPlayer2 = 0;
     int card1;
+    int lastOpenedCard1 = -1;
+    int lastOpenedCard2 = -1;
     String turn = "counterPlayer1";
     Integer[] drawableIds = {
             // Array of drawable resource IDs
@@ -87,6 +91,11 @@ public class MainActivity extends AppCompatActivity {
                 turnEnd(view);
             }
         }
+        // Update the last opened cards
+        if (lastOpenedCard1 != -1) {
+            lastOpenedCard2 = lastOpenedCard1;
+        }
+        lastOpenedCard1 = view.getId();
     }
 
     public void turnEnd(View view) {
@@ -134,12 +143,14 @@ public class MainActivity extends AppCompatActivity {
             ImageView cardClosed = findViewById(viewId[i]);
             cardClosed.setImageResource(R.drawable.card_back);
         }
+        lastOpenedCard1 = -1;
+        lastOpenedCard2 = -1;
     }
 
     public void closeCard(View view) {
-        for (int i = 0; i < viewId.length; i++) {
-            ImageView cardClosed = findViewById(viewId[i]);
-            cardClosed.setImageResource(R.drawable.card_back);
-        }
+        ImageView cardClosed1 = findViewById(lastOpenedCard1);
+        cardClosed1.setImageResource(R.drawable.card_back);
+        ImageView cardClosed2 = findViewById(lastOpenedCard2);
+        cardClosed2.setImageResource(R.drawable.card_back);
     }
 }

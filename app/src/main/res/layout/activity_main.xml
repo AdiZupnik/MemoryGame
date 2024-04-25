@@ -281,7 +281,7 @@
         android:id="@+id/WelcomeMsg"
         android:layout_width="6dp"
         android:layout_height="3dp"
-        android:text=""
+        android:text=" "
         tools:layout_editor_absoluteX="191dp"
         tools:layout_editor_absoluteY="313dp" />
 
