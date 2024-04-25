@@ -1,46 +1,21 @@
 package com.example.memorygame;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContract;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
-import android.app.Instrumentation;
+
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.imageview.ShapeableImageView;
-import com.google.firebase.Firebase;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.GoogleAuthProvider;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -68,8 +43,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        String username = getIntent().getStringExtra("USERNAME");
+        TextView welcomeTextView = findViewById(R.id.WelcomeMsg);
+        welcomeTextView.setText("Welcome: " + username);
     }
+
 
     private void onNewGame() {
         shuffleCards();
@@ -159,14 +137,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void closeCard(View view) {
-        ImageView imageViewCard1 = findViewById(card1);
-        Drawable image1 = imageViewCard1.getDrawable();
-        Drawable image2 = ((ImageView) view).getDrawable();
         for (int i = 0; i < viewId.length; i++) {
-            if(!image1.getConstantState().equals(image2.getConstantState())) {
-                ImageView cardClosed = findViewById(viewId[i]);
-                cardClosed.setImageResource(R.drawable.card_back);
-            }
+            ImageView cardClosed = findViewById(viewId[i]);
+            cardClosed.setImageResource(R.drawable.card_back);
         }
     }
 }
