@@ -5,6 +5,9 @@
       <entry key="LoginActivity">
         <State />
       </entry>
+      <entry key="MainActivity">
+        <State />
+      </entry>
       <entry key="app">
         <State>
           <targetSelectedWithDropDown>
@@ -13,12 +16,12 @@
               <deviceKey>
                 <Key>
                   <type value="VIRTUAL_DEVICE_PATH" />
-                  <value value="C:\Users\zupni\.android\avd\Pixel_6_Pro_API_34_2.avd" />
+                  <value value="C:\Users\zupni\.android\avd\Pixel_6a_API_30_2.avd" />
                 </Key>
               </deviceKey>
             </Target>
           </targetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-04-25T15:13:14.312367300Z" />
+          <timeTargetWasSelectedWithDropDown value="2024-04-25T22:33:32.341203Z" />
         </State>
       </entry>
     </value>
